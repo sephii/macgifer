@@ -82,3 +82,31 @@ def get(ctx, tags):
         gif = random.choice(matches)
         gif_url = get_gif_url(get_base_url(ctx.obj['config']), gif)
         xerox.copy(gif_url)
+    else:
+        print("No gif found :(")
+
+
+@cli.command()
+@click.argument('tags', type=str, nargs=-1)
+@click.pass_context
+def list(ctx, tags):
+    """
+    List gifs matching the given set of tags.
+    """
+    tags = set(tags)
+    metadata = get_metadata(
+        ctx.obj['dropbox'], get_base_path(ctx.obj['config'])
+    )
+    matches = [
+        (item, item_tags) for item, item_tags in metadata.items()
+        if item_tags >= tags
+    ]
+
+    if matches:
+        for match in matches:
+            print('[{}] {}'.format(
+                ' '.join(match[1]),
+                get_gif_url(get_base_url(ctx.obj['config']), match[0]))
+            )
+    else:
+        print("No gif found :(")
