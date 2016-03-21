@@ -11,15 +11,15 @@ def get_base_url(config):
 
 
 def get_metadata_path(base_path):
-    return base_path + '/metadata.json'
+    return base_path.rstrip('/') + '/metadata.json'
 
 
 def get_gif_path(base_path, gif_hash):
-    return '{}/{}.gif'.format(base_path, gif_hash)
+    return '{}/{}.gif'.format(base_path.rstrip('/'), gif_hash)
 
 
 def get_gif_url(base_url, gif_hash):
-    return '{}/{}.gif'.format(base_url, gif_hash)
+    return '{}/{}.gif'.format(base_url.rstrip('/'), gif_hash)
 
 
 def read_config(app_dir):

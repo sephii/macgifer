@@ -80,5 +80,5 @@ def get(ctx, tags):
 
     if matches:
         gif = random.choice(matches)
-        gif_url = get_gif_url(gif, get_base_url(ctx.obj['config']))
+        gif_url = get_gif_url(get_base_url(ctx.obj['config']), gif)
         xerox.copy(gif_url)
